@@ -3,7 +3,19 @@ import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
   align-items: center;
-  background: rgba(84, 131, 126, 0.2);
+  background: white;
+  height: 100%;
+  width: 100%;
+`;
+
+export const ImageContainer = styled.ImageBackground`
+  width: 100%;
+  height: 100%;
+`;
+
+export const StartView = styled.View`
+  align-items: center;
+  width: 100%;
   height: 100%;
   padding: 24px;
 `;
@@ -107,6 +119,7 @@ export const LoginButton = styled.TouchableOpacity`
   background: #37BD6D;
   align-items: center;
   justify-content: center;
+  elevation: 10;
 `;
 
 export const LoginButtonText = styled.Text`
@@ -116,6 +129,7 @@ export const LoginButtonText = styled.Text`
   font-size: 20px;
   text-align: center;
   padding: 5px 25px 5px 25px;
+  color: #fff;
 `;
 
 export const RegisterButtonView = styled.View`
@@ -128,6 +142,7 @@ export const RegisterButton = styled.TouchableOpacity`
   background: #419ED7;
   align-items: center;
   justify-content: center;
+  elevation: 10;
 `;
 
 export const RegisterButtonText = styled.Text`
@@ -137,6 +152,7 @@ export const RegisterButtonText = styled.Text`
   font-size: 20px;
   text-align: center;
   padding: 5px 25px 5px 25px;
+  color: #fff;
 `;
 
 export const ForgotButtonView = styled.View`
@@ -149,6 +165,7 @@ export const ForgotButton = styled.TouchableOpacity`
   background: #B0CCDE;
   align-items: center;
   justify-content: center;
+  elevation: 10;
 `;
 
 export const ForgotButtonText = styled.Text`
@@ -158,6 +175,7 @@ export const ForgotButtonText = styled.Text`
   font-size: 20px;
   text-align: center;
   padding: 5px 25px 5px 25px;
+  color: #fff;
 `;
 
 

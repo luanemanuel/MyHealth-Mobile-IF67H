@@ -71,7 +71,7 @@ function CreateAccount({navigation}) {
     async function trySignUp() {
         try {
             setAlreadyRegisterError(false);
-            await signUp(email, password);
+            await signUp(name, gender, date, email, password);
             await navigation.navigate("Start");
         } catch (e) {
             // @ts-ignore

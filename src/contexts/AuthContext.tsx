@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import firestore from "@react-native-firebase/firestore"
 
 const AuthContext = createContext({});
 
@@ -11,7 +12,9 @@ export function AuthProvider({children}) {
     const [actualUser, setActualUser] = useState<FirebaseAuthTypes.User | null>(null);
     const [loading, setLoading] = useState(true);
 
-    function signIn(email, password) {
+    const usersCollection = firestore().collection('Users');
+
+    function signIn(userName, email, password) {
         return new Promise<void>((resolve, reject) => {
             auth()
                 .signInWithEmailAndPassword(email, password)
@@ -22,10 +25,18 @@ export function AuthProvider({children}) {
         });
     }
 
-    function signUp(email, password) {
+    function signUp(name, gender, date, email, password) {
         return new Promise<void>((resolve, reject) => {
             auth()
-                .createUserWithEmailAndPassword(email, password)
+                .createUserWithEmailAndPassword(email, password).then((user) => {
+                usersCollection.doc(user.user.uid).set({
+                    name: name,
+                    gender: gender,
+                    birth: date,
+                }).catch(error => {
+                    reject(error);
+                });
+            })
                 .catch(error => {
                     reject(error);
                 });
@@ -48,9 +59,15 @@ export function AuthProvider({children}) {
         return actualUser;
     }
 
+    function getUserData() {
+        if (actualUser == null) return null;
+        return usersCollection.doc(actualUser.uid).get();
+    }
+
     const value = {
         actualUser,
         getUser,
+        getUserData,
         signIn,
         signUp,
         signOut,

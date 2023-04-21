@@ -29,13 +29,54 @@ import {
 import VaccineAppBar from "../../components/VaccineAppBar";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import moment from "moment";
+import DatePicker from "react-native-date-picker";
+import {StackActions} from "@react-navigation/native";
+import {useAuth} from "../../contexts/AuthContext";
 
 import Calendar from "../../assets/calendar.svg";
-import DatePicker from "react-native-date-picker";
 
-function CreateAccount() {
-    const [date, setDate] = useState(new Date());
+function CreateAccount({navigation}) {
     const [openPicker, setOpenPicker] = useState(false);
+    const [passError, setPassError] = useState(false);
+    const [name, setName] = useState('');
+    const [gender, setGender] = useState<String | null>(null);
+    const [date, setDate] = useState(new Date());
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPass] = useState('');
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [alreadyRegisterError, setAlreadyRegisterError] = useState(false);
+    // @ts-ignore
+    const {signUp} = useAuth();
+
+    useEffect(() => {
+        const buttonStatus = name.length > 0 && gender != null && date != new Date() && validateEmail(email) && validatePassword(password) && password === confirmPassword;
+        setPassError(password !== confirmPassword);
+        setButtonDisabled(!buttonStatus);
+    });
+
+    function validateEmail(email) {
+        const emailRegex = /\S+@\S+\.\S+/;
+        return emailRegex.test(email);
+    }
+
+    function validatePassword(password) {
+        return password.length >= 6;
+    }
+
+    async function trySignUp() {
+        try {
+            setAlreadyRegisterError(false);
+            await signUp(email, password);
+            await navigation.navigate("Start");
+        } catch (e) {
+            // @ts-ignore
+            if (e.code === 'auth/email-already-in-use') {
+                setAlreadyRegisterError(true);
+            }
+            console.log(e);
+        }
+    }
 
     return (
         <Container>
@@ -43,7 +84,9 @@ function CreateAccount() {
             <Content>
                 <NameFieldView>
                     <NameText>Nome Completo</NameText>
-                    <NameTextField/>
+                    <NameTextField
+                        onChangeText={setName}
+                        value={name}/>
                 </NameFieldView>
                 <GenderFieldView>
                     <GenderText>Sexo</GenderText>
@@ -56,7 +99,10 @@ function CreateAccount() {
                                         borderStyle: 'solid',
                                     }}
                                     iconImageStyle={{opacity: 0}}
-                                    style={{paddingLeft: 15}}/>
+                                    style={{paddingLeft: 15}}
+                                    isChecked={gender === "male"}
+                                    disableBuiltInState
+                                    onPress={() => setGender("male")}/>
                     <GenderText>Masculino</GenderText>
                     <BouncyCheckbox size={24}
                                     unfillColor="#fff"
@@ -67,7 +113,10 @@ function CreateAccount() {
                                         borderStyle: 'solid',
                                     }}
                                     iconImageStyle={{opacity: 0}}
-                                    style={{paddingLeft: 15}}/>
+                                    style={{paddingLeft: 15}}
+                                    isChecked={gender === "female"}
+                                    disableBuiltInState
+                                    onPress={() => setGender("female")}/>
                     <GenderText>Feminino</GenderText>
                 </GenderFieldView>
                 <DateFieldView>
@@ -85,27 +134,43 @@ function CreateAccount() {
                                             setDate(date)
                                         }} onCancel={() => {
                                 setOpenPicker(false)
-                            }} mode="date" />
+                            }} mode="date"/>
                         </DateButton>
                     </DateField>
                 </DateFieldView>
                 <EmailFieldView>
                     <EmailText>E-mail</EmailText>
-                    <EmailTextField/>
+                    <EmailTextField
+                        onChangeText={setEmail}
+                        value={email}/>
                 </EmailFieldView>
                 <PassFieldView>
                     <PassText>Senha</PassText>
-                    <PassTextField/>
+                    <PassTextField
+                        secureTextEntry={true}
+                        onChangeText={setPassword}
+                        value={password}/>
                 </PassFieldView>
                 <ConfirmFieldView>
                     <ConfirmText>Repetir senha</ConfirmText>
-                    <ConfirmTextField/>
+                    <ConfirmTextField
+                        secureTextEntry={true}
+                        onChangeText={setConfirmPass}
+                        value={confirmPassword}/>
                 </ConfirmFieldView>
-                <WrongPassView>
-                    <WrongPassText>Senha não confere!</WrongPassText>
-                </WrongPassView>
+                {passError &&
+                    <WrongPassView>
+                        <WrongPassText>Senha não confere!</WrongPassText>
+                    </WrongPassView>
+                }
+                {alreadyRegisterError &&
+                    <WrongPassView>
+                        <WrongPassText>Email já cadastrado!</WrongPassText>
+                    </WrongPassView>
+                }
                 <RegisterButtonView>
-                    <RegisterButton>
+                    <RegisterButton disabled={buttonDisabled}
+                                    onPress={trySignUp}>
                         <RegisterButtonText>
                             Cadastrar
                         </RegisterButtonText>

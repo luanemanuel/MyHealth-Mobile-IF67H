@@ -73,14 +73,12 @@ function Start({navigation}) {
                         <EmailFieldView>
                             <EmailText>Email</EmailText>
                             <EmailTextField
-                                placeholder="Email"
                                 onChangeText={setEmail}
                                 value={email}/>
                         </EmailFieldView>
                         <PasswordFieldView>
                             <PasswordText>Senha</PasswordText>
                             <PasswordTextField secureTextEntry={true}
-                                               placeholder="Senha"
                                                onChangeText={setPassword}
                                                value={password}/>
                         </PasswordFieldView>

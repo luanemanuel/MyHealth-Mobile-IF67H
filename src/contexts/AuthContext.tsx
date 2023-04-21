@@ -12,32 +12,35 @@ export function AuthProvider({children}) {
     const [loading, setLoading] = useState(true);
 
     function signIn(email, password) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             auth()
                 .signInWithEmailAndPassword(email, password)
                 .catch(error => {
                     reject(error);
                 });
+            resolve();
         });
     }
 
     function signUp(email, password) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             auth()
                 .createUserWithEmailAndPassword(email, password)
                 .catch(error => {
                     reject(error);
                 });
+            resolve();
         });
     }
 
     function signOut() {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             auth()
                 .signOut()
                 .catch(error => {
                     reject(error);
                 });
+            resolve();
         });
     }
 

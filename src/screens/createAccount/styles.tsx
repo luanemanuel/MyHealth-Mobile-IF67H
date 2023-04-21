@@ -28,7 +28,7 @@ export const NameTextField = styled.TextInput`
   margin-left: 10px;
   color: #419ED7;
   font-family: 'AveriaLibre-Regular';
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 export const NameText = styled.Text`
@@ -110,7 +110,7 @@ export const EmailTextField = styled.TextInput`
   margin-left: 10px;
   color: #419ED7;
   font-family: 'AveriaLibre-Regular';
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 export const EmailText = styled.Text`
@@ -135,7 +135,7 @@ export const PassTextField = styled.TextInput`
   margin-left: 10px;
   color: #419ED7;
   font-family: 'AveriaLibre-Regular';
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 export const PassText = styled.Text`
@@ -160,7 +160,7 @@ export const ConfirmTextField = styled.TextInput`
   margin-left: 10px;
   color: #419ED7;
   font-family: 'AveriaLibre-Regular';
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 export const ConfirmText = styled.Text`

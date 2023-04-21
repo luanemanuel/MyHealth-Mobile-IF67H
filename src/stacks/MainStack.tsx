@@ -2,6 +2,7 @@ import React from "react";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Start from "../screens/start";
+import CreateAccount from "../screens/createAccount";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,7 @@ function MainStack() {
                 headerShown: false,
             }}>
             <Stack.Screen name="Start" component={Start}/>
+            <Stack.Screen name="CreateAccount" component={CreateAccount}/>
         </Stack.Navigator>
     );
 }

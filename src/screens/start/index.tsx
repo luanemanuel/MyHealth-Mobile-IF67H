@@ -25,7 +25,7 @@ import {useAuth} from "../../contexts/AuthContext";
 
 import Vaccine from "../../assets/icon-vaccine.svg";
 
-function Start() {
+function Start({navigation}) {
     const [loginError, setLoginError] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -96,7 +96,7 @@ function Start() {
                             </LoginButton>
                         </LoginButtonView>
                         <RegisterButtonView>
-                            <RegisterButton>
+                            <RegisterButton onPress={() => navigation.navigate("CreateAccount")}>
                                 <RegisterButtonText>Criar minha conta</RegisterButtonText>
                             </RegisterButton>
                         </RegisterButtonView>

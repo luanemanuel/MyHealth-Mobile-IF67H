@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
     Container,
     TitleText,
@@ -30,6 +30,8 @@ function Start({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    const passRef = useRef<any>();
 
     // @ts-ignore
     const {signIn} = useAuth();
@@ -74,13 +76,16 @@ function Start({navigation}) {
                             <EmailText>Email</EmailText>
                             <EmailTextField
                                 onChangeText={setEmail}
-                                value={email}/>
+                                value={email}
+                                onSubmitEditing={() => passRef.current.focus()}
+                                blurOnSubmit={false}/>
                         </EmailFieldView>
                         <PasswordFieldView>
                             <PasswordText>Senha</PasswordText>
                             <PasswordTextField secureTextEntry={true}
                                                onChangeText={setPassword}
-                                               value={password}/>
+                                               value={password}
+                                               ref={passRef}/>
                         </PasswordFieldView>
                         {
                             loginError &&

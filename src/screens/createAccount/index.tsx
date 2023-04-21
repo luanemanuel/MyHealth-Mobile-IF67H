@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
     ConfirmFieldView,
     ConfirmText,
@@ -46,6 +46,10 @@ function CreateAccount({navigation}) {
     const [confirmPassword, setConfirmPass] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [alreadyRegisterError, setAlreadyRegisterError] = useState(false);
+
+    const passRef = useRef<any>();
+    const confirmPassRef = useRef<any>();
+
     // @ts-ignore
     const {signUp} = useAuth();
 
@@ -142,21 +146,27 @@ function CreateAccount({navigation}) {
                     <EmailText>E-mail</EmailText>
                     <EmailTextField
                         onChangeText={setEmail}
-                        value={email}/>
+                        value={email}
+                        onSubmitEditing={() => passRef.current.focus()}
+                        blurOnSubmit={false}/>
                 </EmailFieldView>
                 <PassFieldView>
                     <PassText>Senha</PassText>
                     <PassTextField
                         secureTextEntry={true}
                         onChangeText={setPassword}
-                        value={password}/>
+                        value={password}
+                        onSubmitEditing={() => confirmPassRef.current.focus()}
+                        blurOnSubmit={false}
+                        ref={passRef}/>
                 </PassFieldView>
                 <ConfirmFieldView>
                     <ConfirmText>Repetir senha</ConfirmText>
                     <ConfirmTextField
                         secureTextEntry={true}
                         onChangeText={setConfirmPass}
-                        value={confirmPassword}/>
+                        value={confirmPassword}
+                        ref={confirmPassRef}/>
                 </ConfirmFieldView>
                 {passError &&
                     <WrongPassView>

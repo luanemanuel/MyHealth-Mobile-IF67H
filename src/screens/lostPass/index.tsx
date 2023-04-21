@@ -3,16 +3,16 @@ import {Container, Content} from "./styles";
 import VaccineAppBar from "../../components/VaccineAppBar";
 
 
-function Home({navigation}) {
+function LostPass({navigation}) {
 
     return(
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas'/>
+            <VaccineAppBar haveDrawer={false} text='MyHealth'/>
             <Content>
-
+                
             </Content>
         </Container>
     );
 }
 
-export default Home;
+export default LostPass;

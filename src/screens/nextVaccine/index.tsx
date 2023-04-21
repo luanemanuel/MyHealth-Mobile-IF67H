@@ -3,11 +3,11 @@ import {Container, Content} from "./styles";
 import VaccineAppBar from "../../components/VaccineAppBar";
 
 
-function Home({navigation}) {
+function NextVaccine({navigation}) {
 
     return(
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas'/>
+            <VaccineAppBar haveDrawer={true} text='Próximas vacinas'/>
             <Content>
 
             </Content>
@@ -15,4 +15,4 @@ function Home({navigation}) {
     );
 }
 
-export default Home;
+export default NextVaccine;

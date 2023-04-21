@@ -3,7 +3,7 @@ import {Container, Content} from "./styles";
 import VaccineAppBar from "../../components/VaccineAppBar";
 
 
-function Home({navigation}) {
+function EditVaccine({navigation}) {
 
     return(
         <Container>
@@ -15,4 +15,4 @@ function Home({navigation}) {
     );
 }
 
-export default Home;
+export default EditVaccine;

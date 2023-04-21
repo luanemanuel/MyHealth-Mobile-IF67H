@@ -14,7 +14,7 @@ export function AuthProvider({children}) {
 
     const usersCollection = firestore().collection('Users');
 
-    function signIn(userName, email, password) {
+    function signIn(email, password) {
         return new Promise<void>((resolve, reject) => {
             auth()
                 .signInWithEmailAndPassword(email, password)

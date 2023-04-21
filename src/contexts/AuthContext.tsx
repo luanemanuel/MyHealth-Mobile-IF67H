@@ -64,6 +64,17 @@ export function AuthProvider({children}) {
         return usersCollection.doc(actualUser.uid).get();
     }
 
+    function recoverPassword(email) {
+        return new Promise<void>((resolve, reject) => {
+            auth()
+                .sendPasswordResetEmail(email)
+                .catch(error => {
+                    reject(error);
+                });
+            resolve();
+        });
+    }
+
     const value = {
         actualUser,
         getUser,
@@ -71,6 +82,7 @@ export function AuthProvider({children}) {
         signIn,
         signUp,
         signOut,
+        recoverPassword,
     }
 
     useEffect(() => {

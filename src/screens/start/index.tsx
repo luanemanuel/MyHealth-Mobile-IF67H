@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
     Container,
     TitleText,
@@ -24,6 +24,14 @@ import {
 import Vaccine from "../../assets/icon-vaccine.svg";
 
 function Start() {
+    const [loginError, setLoginError] = useState(false);
+
+    useEffect(() => {
+        if (loginError) {
+            console.log("Login error");
+        }
+    });
+
     return (
         <Container>
             <TitleView>
@@ -43,9 +51,12 @@ function Start() {
                 <PasswordText>Senha</PasswordText>
                 <PasswordTextField secureTextEntry={true}/>
             </PasswordFieldView>
-            <WrongPassView>
-                <WrongPassText hidden={true}>E-mail e/ou senha inválidos.</WrongPassText>
-            </WrongPassView>
+            {
+                loginError &&
+                <WrongPassView>
+                    <WrongPassText hidden={true}>E-mail e/ou senha inválidos.</WrongPassText>
+                </WrongPassView>
+            }
             <LoginButtonView>
                 <LoginButton>
                     <LoginButtonText>Entrar</LoginButtonText>

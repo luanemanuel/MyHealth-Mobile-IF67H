@@ -21,17 +21,35 @@ import {
     RegisterButtonText, ForgotButtonView, ForgotButton, ForgotButtonText, ImageContainer, StartView
 } from "./styles";
 import LinearGradient from "react-native-linear-gradient";
+import {useAuth} from "../../contexts/AuthContext";
 
 import Vaccine from "../../assets/icon-vaccine.svg";
 
 function Start() {
     const [loginError, setLoginError] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    // @ts-ignore
+    const {signIn} = useAuth();
 
     useEffect(() => {
-        if (loginError) {
-            console.log("Login error");
-        }
+        setButtonDisabled(!(validateEmail(email) && password.length > 0));
     });
+
+    function validateEmail(email) {
+        const emailRegex = /\S+@\S+\.\S+/;
+        return emailRegex.test(email);
+    }
+
+    async function tryLogin() {
+        try {
+            await signIn(email, password);
+        } catch (e) {
+            setLoginError(true);
+        }
+    }
 
     return (
         <Container>
@@ -54,11 +72,17 @@ function Start() {
                         </SubtitleView>
                         <EmailFieldView>
                             <EmailText>Email</EmailText>
-                            <EmailTextField/>
+                            <EmailTextField
+                                placeholder="Email"
+                                onChangeText={setEmail}
+                                value={email}/>
                         </EmailFieldView>
                         <PasswordFieldView>
                             <PasswordText>Senha</PasswordText>
-                            <PasswordTextField secureTextEntry={true}/>
+                            <PasswordTextField secureTextEntry={true}
+                                               placeholder="Senha"
+                                               onChangeText={setPassword}
+                                               value={password}/>
                         </PasswordFieldView>
                         {
                             loginError &&
@@ -67,7 +91,7 @@ function Start() {
                             </WrongPassView>
                         }
                         <LoginButtonView>
-                            <LoginButton>
+                            <LoginButton disabled={buttonDisabled} onPress={tryLogin}>
                                 <LoginButtonText>Entrar</LoginButtonText>
                             </LoginButton>
                         </LoginButtonView>

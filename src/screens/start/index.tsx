@@ -48,6 +48,7 @@ function Start({navigation}) {
     async function tryLogin() {
         try {
             await signIn(email, password);
+            navigation.replace("Home");
         } catch (e) {
             setLoginError(true);
         }
@@ -104,7 +105,7 @@ function Start({navigation}) {
                             </RegisterButton>
                         </RegisterButtonView>
                         <ForgotButtonView>
-                            <ForgotButton>
+                            <ForgotButton onPress={() => navigation.navigate("LostPass")}>
                                 <ForgotButtonText>Esqueci minha senha</ForgotButtonText>
                             </ForgotButton>
                         </ForgotButtonView>

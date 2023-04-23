@@ -17,7 +17,14 @@ function Home({navigation}) {
     );
 
     const [search, setSearch] = React.useState('');
-    const [vaccines, setVaccines] = React.useState<Vaccine[]>([myVaccineMock, myVaccineMock]);
+    const [vaccines, setVaccines] = React.useState<Vaccine[]>([myVaccineMock, myVaccineMock, myVaccineMock]);
+
+    function searchVaccine() {
+        if (search.length > 0) {
+            return vaccines.filter(vaccine => vaccine.vaccineName.toLowerCase().includes(search.toLowerCase()));
+        }
+        return vaccines;
+    }
 
     return (
         <Container>
@@ -33,9 +40,10 @@ function Home({navigation}) {
                         underlineColorAndroid="transparent"/>
                 </SearchBarView>
                 <VaccineListView>
-                    <FlatList data={vaccines}
+                    <FlatList data={searchVaccine()}
                               renderItem={({item}) => <VaccineListItem item={item}/>}
-                              keyExtractor={item => item.id} numColumns={2} columnWrapperStyle={{justifyContent: 'space-between'}}/>
+                              keyExtractor={item => item.id} numColumns={2}
+                              columnWrapperStyle={{justifyContent: 'space-between'}}/>
                 </VaccineListView>
             </Content>
         </Container>

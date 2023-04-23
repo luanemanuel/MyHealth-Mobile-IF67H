@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-import {DrawerContentScrollView} from "@react-navigation/drawer";
+import React, {useEffect, useState} from "react";
 import {Container, DrawerButton, DrawerButtonView, DrawerDividier, DrawerText, TitleDrawerView} from "./styles";
 
 import Vaccine from "../../assets/icon-vaccine.svg";
@@ -8,8 +7,9 @@ import Logout from "../../assets/logout.svg";
 import {useAuth} from "../../contexts/AuthContext";
 
 function CustomDrawer({navigation}) {
+    const [userName, setUserName] = useState('');
     // @ts-ignore
-    const {signOut} = useAuth();
+    const {signOut, getUserName} = useAuth();
 
     async function logout() {
         try {
@@ -20,10 +20,20 @@ function CustomDrawer({navigation}) {
         }
     }
 
+    async function getUserNameFromStorage() {
+        return await getUserName();
+    }
+
+    useEffect(() => {
+        getUserNameFromStorage().then((name) => {
+            setUserName(name);
+        });
+    });
+
     return (
         <Container>
             <TitleDrawerView>
-                <DrawerText>Olá Jurandir!</DrawerText>
+                <DrawerText>Olá {userName.split(' ')[0]}!</DrawerText>
                 <DrawerDividier/>
             </TitleDrawerView>
             <DrawerButtonView>

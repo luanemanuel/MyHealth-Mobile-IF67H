@@ -75,6 +75,13 @@ export function AuthProvider({children}) {
         });
     }
 
+    function getUserName() {
+        if (actualUser == null) return null;
+        return usersCollection.doc(actualUser.uid).get().then((doc) => {
+            return doc.get("name");
+        });
+    }
+
     const value = {
         actualUser,
         getUser,
@@ -83,6 +90,7 @@ export function AuthProvider({children}) {
         signUp,
         signOut,
         recoverPassword,
+        getUserName,
     }
 
     useEffect(() => {

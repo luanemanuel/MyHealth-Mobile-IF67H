@@ -17,11 +17,14 @@ export function AuthProvider({children}) {
     function signIn(email, password) {
         return new Promise<void>((resolve, reject) => {
             auth()
-                .signInWithEmailAndPassword(email, password)
+                .signInWithEmailAndPassword(email, password).then(() => {
+                resolve();
+            })
                 .catch(error => {
                     reject(error);
-                });
-            resolve();
+                }).catch(error => {
+                reject(error);
+            });
         });
     }
 
@@ -33,25 +36,25 @@ export function AuthProvider({children}) {
                     name: name,
                     gender: gender,
                     birth: date,
-                }).catch(error => {
+                }).then(() => resolve()).catch(error => {
                     reject(error);
                 });
             })
                 .catch(error => {
                     reject(error);
                 });
-            resolve();
         });
     }
 
     function signOut() {
         return new Promise<void>((resolve, reject) => {
             auth()
-                .signOut()
+                .signOut().then(() => {
+                resolve();
+            })
                 .catch(error => {
                     reject(error);
                 });
-            resolve();
         });
     }
 
@@ -67,11 +70,12 @@ export function AuthProvider({children}) {
     function recoverPassword(email) {
         return new Promise<void>((resolve, reject) => {
             auth()
-                .sendPasswordResetEmail(email)
+                .sendPasswordResetEmail(email).then(() => {
+                resolve();
+            })
                 .catch(error => {
                     reject(error);
                 });
-            resolve();
         });
     }
 

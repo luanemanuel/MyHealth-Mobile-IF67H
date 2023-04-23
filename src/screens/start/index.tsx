@@ -45,13 +45,14 @@ function Start({navigation}) {
         return emailRegex.test(email);
     }
 
-    async function tryLogin() {
-        try {
-            await signIn(email, password);
+    function tryLogin() {
+        setLoginError(false);
+        signIn(email, password).then(() => {
             navigation.replace("DrawerStack");
-        } catch (e) {
+        }).catch(e => {
+            console.log(e);
             setLoginError(true);
-        }
+        });
     }
 
     return (

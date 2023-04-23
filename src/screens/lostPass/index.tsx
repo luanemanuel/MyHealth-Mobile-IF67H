@@ -30,38 +30,37 @@ function LostPass({navigation}) {
     });
 
     async function recover() {
-        try {
-            await recoverPassword(email);
+        recoverPassword(email).then(() => {
             navigation.navigate('Start');
-        } catch (e) {
+        }).catch(e => {
             console.log(e);
-        }
+        });
     }
 
-return (
-    <Container>
-        <VaccineAppBar haveDrawer={false} text='MyHealth' navigation={navigation}/>
-        <Content>
-            <EmailFieldView>
-                <EmailText>E-mail</EmailText>
-                <EmailTextField
-                    onChangeText={setEmail}
-                    value={email}/>
-            </EmailFieldView>
-            {
-                wrongMail &&
-                <WrongMailView>
-                    <WrongMailText>Email inválido</WrongMailText>
-                </WrongMailView>
-            }
-            <RecoverButtonView>
-                <RecoverButton disabled={disabledButton} onPress={recover}>
-                    <RecoverButtonText>Recuperar senha</RecoverButtonText>
-                </RecoverButton>
-            </RecoverButtonView>
-        </Content>
-    </Container>
-);
+    return (
+        <Container>
+            <VaccineAppBar haveDrawer={false} text='MyHealth' navigation={navigation}/>
+            <Content>
+                <EmailFieldView>
+                    <EmailText>E-mail</EmailText>
+                    <EmailTextField
+                        onChangeText={setEmail}
+                        value={email}/>
+                </EmailFieldView>
+                {
+                    wrongMail &&
+                    <WrongMailView>
+                        <WrongMailText>Email inválido</WrongMailText>
+                    </WrongMailView>
+                }
+                <RecoverButtonView>
+                    <RecoverButton disabled={disabledButton} onPress={recover}>
+                        <RecoverButtonText>Recuperar senha</RecoverButtonText>
+                    </RecoverButton>
+                </RecoverButtonView>
+            </Content>
+        </Container>
+    );
 }
 
 export default LostPass;

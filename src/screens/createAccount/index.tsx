@@ -68,18 +68,17 @@ function CreateAccount({navigation}) {
         return password.length >= 6;
     }
 
-    async function trySignUp() {
-        try {
-            setAlreadyRegisterError(false);
-            await signUp(name, gender, date, email, password);
-            await navigation.navigate("Start");
-        } catch (e) {
+    function trySignUp() {
+        setAlreadyRegisterError(false);
+        signUp(name, gender, date, email, password).then(() => {
+            navigation.navigate("Start");
+        }).catch(e => {
             // @ts-ignore
             if (e.code === 'auth/email-already-in-use') {
                 setAlreadyRegisterError(true);
             }
             console.log(e);
-        }
+        });
     }
 
     return (

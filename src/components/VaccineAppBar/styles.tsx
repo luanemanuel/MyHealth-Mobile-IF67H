@@ -13,6 +13,6 @@ export const AppBarText = styled.Text`
   font-family: 'AveriaLibre-Regular';
   font-style: normal;
   font-weight: 400;
-  font-size: 45px;
+  font-size: 40px;
   color: #419ED7;
 `;

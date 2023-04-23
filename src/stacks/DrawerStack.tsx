@@ -4,6 +4,7 @@ import NewVaccine from "../screens/newVaccine";
 import EditVaccine from "../screens/editVaccine";
 import NextVaccine from "../screens/nextVaccine";
 import React from "react";
+import CustomDrawer from "../components/CustomDrawer";
 
 const Drawer = createDrawerNavigator();
 
@@ -13,11 +14,12 @@ function DrawerStack() {
             initialRouteName="Home"
             screenOptions={{
                 headerShown: false,
-            }}>
+            }}
+            drawerContent={(props) => <CustomDrawer {...props}/>}>
             <Drawer.Screen name="Home" component={Home}/>
             <Drawer.Screen name="NewVaccine" component={NewVaccine}/>
             <Drawer.Screen name="EditVaccine" component={EditVaccine}/>
-            <Drawer.Screen name="NextScreen" component={NextVaccine}/>
+            <Drawer.Screen name="NextVaccine" component={NextVaccine}/>
         </Drawer.Navigator>
     );
 }

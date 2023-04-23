@@ -7,7 +7,7 @@ function NewVaccine({navigation}) {
 
     return(
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas'/>
+            <VaccineAppBar haveDrawer={true} text='Minhas vacinas' navigation={navigation}/>
             <Content>
 
             </Content>

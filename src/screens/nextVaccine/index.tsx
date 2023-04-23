@@ -7,7 +7,7 @@ function NextVaccine({navigation}) {
 
     return(
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Próximas vacinas'/>
+            <VaccineAppBar haveDrawer={true} text='Próximas vacinas' navigation={navigation}/>
             <Content>
 
             </Content>

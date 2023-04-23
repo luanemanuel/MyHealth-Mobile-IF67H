@@ -48,7 +48,7 @@ function Start({navigation}) {
     async function tryLogin() {
         try {
             await signIn(email, password);
-            navigation.replace("Home");
+            navigation.replace("DrawerStack");
         } catch (e) {
             setLoginError(true);
         }

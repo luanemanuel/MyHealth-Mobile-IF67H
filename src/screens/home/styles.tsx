@@ -9,8 +9,35 @@ export const Container = styled.SafeAreaView`
 `
 
 export const Content = styled.View`
-  align-items: flex-end;
+  align-items: center;
   height: 100%;
   width: 100%;
   padding: 24px;
+`;
+
+export const SearchBarView = styled.View`
+  width: 95%;
+  height: 32px;
+  background: #fff;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+`;
+
+export const SearchTextInput = styled.TextInput`
+  width: 100%;
+  height: 32px;
+  background: transparent;
+  margin-left: 10px;
+  color: #419ED7;
+  font-family: 'AveriaLibre-Regular';
+  font-size: 14px;
+  padding: 0;
+`;
+
+export const VaccineListView = styled.View`
+  width: 100%;
+  height: 80%;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;

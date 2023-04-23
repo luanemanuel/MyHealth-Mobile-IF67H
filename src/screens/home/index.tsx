@@ -10,7 +10,7 @@ import VaccineListItem from "../../components/VaccineListItem";
 function Home({navigation}) {
     let myVaccineMock = new Vaccine("1",
         "Hepatite BBBBBBBBBBBBBBBB",
-        "https://www.vacinas.org.br/wp-content/uploads/2018/08/hepatite-b.jpg",
+        "https://picsum.photos/600/300",
         new Date(),
         "1ª dose",
         new Date(),

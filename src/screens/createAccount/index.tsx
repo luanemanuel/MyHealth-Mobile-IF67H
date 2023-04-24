@@ -22,7 +22,7 @@ import {
     PassText,
     PassTextField,
     RegisterButton, RegisterButtonText,
-    RegisterButtonView,
+    RegisterButtonView, WrongEmailText, WrongEmailView,
     WrongPassText,
     WrongPassView
 } from "./styles";
@@ -46,6 +46,7 @@ function CreateAccount({navigation}) {
     const [confirmPassword, setConfirmPass] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [alreadyRegisterError, setAlreadyRegisterError] = useState(false);
+    const [wrongEmailError, setWrongEmailError] = useState(false);
 
     const passRef = useRef<any>();
     const confirmPassRef = useRef<any>();
@@ -54,6 +55,7 @@ function CreateAccount({navigation}) {
     const {signUp} = useAuth();
 
     useEffect(() => {
+        setWrongEmailError(!validateEmail(email) && email.length > 0);
         const buttonStatus = name.length > 0 && gender != null && date != new Date() && validateEmail(email) && validatePassword(password) && password === confirmPassword;
         setPassError(password !== confirmPassword);
         setButtonDisabled(!buttonStatus);
@@ -149,6 +151,12 @@ function CreateAccount({navigation}) {
                         onSubmitEditing={() => passRef.current.focus()}
                         blurOnSubmit={false}/>
                 </EmailFieldView>
+                {
+                    wrongEmailError &&
+                    <WrongEmailView>
+                        <WrongEmailText>Email inválido!</WrongEmailText>
+                    </WrongEmailView>
+                }
                 <PassFieldView>
                     <PassText>Senha</PassText>
                     <PassTextField
@@ -179,6 +187,7 @@ function CreateAccount({navigation}) {
                 }
                 <RegisterButtonView>
                     <RegisterButton disabled={buttonDisabled}
+                                    style={{opacity: buttonDisabled ? 0.5 : 1}}
                                     onPress={trySignUp}>
                         <RegisterButtonText>
                             Cadastrar

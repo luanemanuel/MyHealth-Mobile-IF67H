@@ -41,3 +41,28 @@ export const VaccineListView = styled.View`
   padding-top: 20px;
   padding-bottom: 20px;
 `;
+
+export const CreateVaccineButtonView = styled.View`
+  padding-top: 10px;
+  align-items: center;
+  width: 100%;
+`;
+
+export const CreateVaccineButton = styled.TouchableOpacity`
+  width: 50%;
+  height: 40px;
+  background: #37BD6D;
+  align-items: center;
+  justify-content: center;
+  elevation: 10;
+`;
+
+export const CreateVaccineButtonText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px 25px 5px 25px;
+  color: #fff;
+`;

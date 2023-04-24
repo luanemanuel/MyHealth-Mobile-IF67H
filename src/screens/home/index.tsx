@@ -1,5 +1,13 @@
 import React from "react";
-import {Container, Content, SearchBarView, SearchTextInput, VaccineListView} from "./styles";
+import {
+    Container,
+    Content,
+    CreateVaccineButton, CreateVaccineButtonText,
+    CreateVaccineButtonView,
+    SearchBarView,
+    SearchTextInput,
+    VaccineListView
+} from "./styles";
 import VaccineAppBar from "../../components/VaccineAppBar";
 import {FlatList} from "react-native";
 import {Vaccine} from "../../interfaces/vaccine";
@@ -45,6 +53,11 @@ function Home({navigation}) {
                               keyExtractor={item => item.id} numColumns={2}
                               columnWrapperStyle={{justifyContent: 'space-between'}}/>
                 </VaccineListView>
+                <CreateVaccineButtonView>
+                    <CreateVaccineButton onPress={() => navigation.navigate("NewVaccine")}>
+                        <CreateVaccineButtonText>Nova vacina</CreateVaccineButtonText>
+                    </CreateVaccineButton>
+                </CreateVaccineButtonView>
             </Content>
         </Container>
     );

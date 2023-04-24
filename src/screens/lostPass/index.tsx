@@ -54,7 +54,9 @@ function LostPass({navigation}) {
                     </WrongMailView>
                 }
                 <RecoverButtonView>
-                    <RecoverButton disabled={disabledButton} onPress={recover}>
+                    <RecoverButton disabled={disabledButton}
+                                   style={{opacity: disabledButton ? 0.5 : 1}}
+                                   onPress={recover}>
                         <RecoverButtonText>Recuperar senha</RecoverButtonText>
                     </RecoverButton>
                 </RecoverButtonView>

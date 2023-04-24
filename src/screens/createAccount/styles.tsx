@@ -208,3 +208,15 @@ export const RegisterButtonText = styled.Text`
   padding: 5px 25px 5px 25px;
   color: #fff;
 `;
+
+export const WrongEmailView = styled.View`
+    width: 98%;
+`;
+
+export const WrongEmailText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 55px;
+  color: #FD7979;
+`;

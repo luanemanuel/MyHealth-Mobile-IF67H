@@ -96,7 +96,9 @@ function Start({navigation}) {
                             </WrongPassView>
                         }
                         <LoginButtonView>
-                            <LoginButton disabled={buttonDisabled} onPress={tryLogin}>
+                            <LoginButton disabled={buttonDisabled}
+                                         style={{opacity: buttonDisabled ? 0.5 : 1}}
+                                         onPress={tryLogin}>
                                 <LoginButtonText>Entrar</LoginButtonText>
                             </LoginButton>
                         </LoginButtonView>

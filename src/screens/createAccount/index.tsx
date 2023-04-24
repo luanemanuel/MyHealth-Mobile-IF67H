@@ -30,7 +30,7 @@ import VaccineAppBar from "../../components/VaccineAppBar";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import moment from "moment";
 import DatePicker from "react-native-date-picker";
-import {StackActions} from "@react-navigation/native";
+
 import {useAuth} from "../../contexts/AuthContext";
 
 import Calendar from "../../assets/calendar.svg";

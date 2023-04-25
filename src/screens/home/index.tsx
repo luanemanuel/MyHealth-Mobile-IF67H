@@ -61,7 +61,7 @@ function Home({navigation}) {
                 </SearchBarView>
                 <VaccineListView>
                     <FlatList data={searchVaccine()}
-                              renderItem={({item}) => <VaccineListItem item={item}/>}
+                              renderItem={({item}) => <VaccineListItem item={item} navigation={navigation}/>}
                               keyExtractor={item => item.id} numColumns={2}
                               columnWrapperStyle={{justifyContent: 'space-between'}}/>
                 </VaccineListView>

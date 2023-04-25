@@ -44,6 +44,21 @@ export function VaccineProvider({children}) {
         });
     }
 
+    function editVaccine(userId, vaccine: Vaccine) {
+        const vaccineCollection = usersCollection.doc(userId).collection('Vaccines').doc(vaccine.id);
+        return new Promise<void>((resolve, reject) => {
+            vaccineCollection.set({
+                name: vaccine.vaccineName,
+                imagePath: vaccine.vaccineImage,
+                date: vaccine.vaccineDate,
+                dose: vaccine.vaccineDose,
+                nextDate: vaccine.vaccineNextDose,
+            }).then(() => resolve()).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
     function deleteVaccine(userId, vaccineId) {
         const vaccineCollection = usersCollection.doc(userId).collection('Vaccines').doc(vaccineId);
         return new Promise<void>((resolve, reject) => {
@@ -73,7 +88,9 @@ export function VaccineProvider({children}) {
                 const vaccines: Vaccine[] = [];
                 querySnapshot.forEach((doc) => {
                     const vaccine = doc.data();
-                    vaccines.push(new Vaccine(doc.id, vaccine.name, vaccine.imagePath, vaccine.date, vaccine.dose, vaccine.nextDate));
+                    const date = vaccine.date.toDate();
+                    const nextDate = vaccine.nextDate ? vaccine.nextDate.toDate() : null;
+                    vaccines.push(new Vaccine(doc.id, vaccine.name, vaccine.imagePath, date, vaccine.dose, nextDate));
                 });
                 resolve(vaccines);
             }).catch(error => {
@@ -87,6 +104,7 @@ export function VaccineProvider({children}) {
         setActualVaccine,
         getVaccine,
         createVaccine,
+        editVaccine,
         deleteVaccine,
         getVaccineId,
         fetchVaccines,

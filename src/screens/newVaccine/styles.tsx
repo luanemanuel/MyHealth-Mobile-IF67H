@@ -71,6 +71,7 @@ export const VaccineNameTextField = styled.TextInput`
   color: #419ED7;
   font-family: 'AveriaLibre-Regular';
   font-size: 16px;
+  padding-top: 5px;
 `;
 
 export const VaccineNameText = styled.Text`

@@ -1,5 +1,19 @@
 import React, {useEffect, useState} from "react";
-import {Container, Content, DeleteButton, DeleteButtonText, DeleteButtonView} from "./styles";
+import {
+    Container,
+    Content,
+    DeleteButton,
+    DeleteButtonText,
+    DeleteButtonView,
+    DeleteModalButtonView, DeleteModalCancelButton, DeleteModalCancelButtonText, DeleteModalCancelButtonView,
+    DeleteModalContent,
+    DeleteModalDelButton,
+    DeleteModalDelButtonText,
+    DeleteModalDelButtonView,
+    DeleteModalText,
+    DeleteModalTextContent,
+    DeleteModalView
+} from "./styles";
 import VaccineAppBar from "../../components/VaccineAppBar";
 import {useAuth} from "../../contexts/AuthContext";
 import {useVaccine} from "../../contexts/VaccineContext";
@@ -35,6 +49,7 @@ import Trash from "../../assets/trash_icon.svg";
 import DatePicker from "react-native-date-picker";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {Vaccine} from "../../interfaces/vaccine";
+import {Modal} from "react-native";
 
 const ImagePicker = require('react-native-image-picker');
 
@@ -49,6 +64,7 @@ function EditVaccine({navigation}) {
     const [nextDate, setNextDate] = useState<Date | null>(null);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
     // @ts-ignore
     const {getUser} = useAuth();
@@ -97,6 +113,7 @@ function EditVaccine({navigation}) {
     function deleteActualVaccine() {
         const userId = getUser().uid;
         deleteVaccine(userId, vaccineId).then(() => {
+            setModalVisible(false);
             navigation.goBack();
         }).catch((error) => {
             console.log(error);
@@ -126,6 +143,34 @@ function EditVaccine({navigation}) {
     return (
         <Container>
             <VaccineAppBar haveDrawer={false} haveReturn={true} text='Editar vacina' navigation={navigation}/>
+            {
+                modalVisible &&
+                <DeleteModalView>
+                    <Modal
+                        animationType='slide'
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => setModalVisible(!modalVisible)}>
+                        <DeleteModalContent>
+                            <DeleteModalTextContent>
+                                <DeleteModalText>Tem certeza que deseja remover essa vacina?</DeleteModalText>
+                            </DeleteModalTextContent>
+                            <DeleteModalButtonView>
+                                <DeleteModalDelButtonView>
+                                    <DeleteModalDelButton onPress={deleteActualVaccine}>
+                                        <DeleteModalDelButtonText>Sim</DeleteModalDelButtonText>
+                                    </DeleteModalDelButton>
+                                </DeleteModalDelButtonView>
+                                <DeleteModalCancelButtonView>
+                                    <DeleteModalCancelButton onPress={() => setModalVisible(false)}>
+                                        <DeleteModalCancelButtonText>Cancelar</DeleteModalCancelButtonText>
+                                    </DeleteModalCancelButton>
+                                </DeleteModalCancelButtonView>
+                            </DeleteModalButtonView>
+                        </DeleteModalContent>
+                    </Modal>
+                </DeleteModalView>
+            }
             <Content>
                 <VaccineDateFieldView>
                     <VaccineDateText>Data de vacinação</VaccineDateText>
@@ -259,7 +304,7 @@ function EditVaccine({navigation}) {
                     </CreateButton>
                 </CreateButtonView>
                 <DeleteButtonView>
-                    <DeleteButton onPress={deleteActualVaccine}>
+                    <DeleteButton onPress={() => setModalVisible(true)}>
                         <Trash height={20} width={20} style={{paddingRight: 30}}/>
                         <DeleteButtonText>Excluir</DeleteButtonText>
                     </DeleteButton>

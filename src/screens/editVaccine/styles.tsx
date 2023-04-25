@@ -233,7 +233,7 @@ export const DeleteButton = styled.TouchableOpacity`
   height: 40px;
   background: #FD7979;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
   flex-direction: row;
   elevation: 10;
 `;
@@ -245,4 +245,92 @@ export const DeleteButtonText = styled.Text`
   font-size: 20px;
   text-align: center;
   color: #fff;
+`;
+
+export const DeleteModalView = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteModalContent = styled.View`
+  width: 80%;
+  height: 20%;
+  margin-top: 70%;
+  margin-left: 10%;
+  background: #fff;
+  align-items: center;
+  border: 3px solid #B9DFDB;
+`;
+
+export const DeleteModalTextContent = styled.View`
+  width: 70%;
+`;
+
+export const DeleteModalText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #FD7979;
+  padding-top: 10px;
+`;
+
+export const DeleteModalDelButtonView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  padding-top: 40px;
+  align-items: center;
+`;
+
+export const DeleteModalDelButton = styled.TouchableOpacity`
+  background: #FF8383;
+  width: 75%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteModalDelButtonText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+`;
+
+export const DeleteModalCancelButtonView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  padding-top: 40px;
+`;
+
+export const DeleteModalCancelButton = styled.TouchableOpacity`
+  background: #3F92C5;
+  width: 75%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteModalCancelButtonText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+`;
+
+export const DeleteModalButtonView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: 50%;
+  padding-right: 21%;
 `;

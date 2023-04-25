@@ -62,7 +62,14 @@ export function VaccineProvider({children}) {
     function deleteVaccine(userId, vaccineId) {
         const vaccineCollection = usersCollection.doc(userId).collection('Vaccines').doc(vaccineId);
         return new Promise<void>((resolve, reject) => {
-            vaccineCollection.delete().then(() => resolve()).catch(error => {
+            vaccineCollection.delete().then(() => {
+                const vaccineImage = vaccinesStorage.child(vaccineId);
+                vaccineImage.delete().then(() => {
+                    resolve();
+                }).catch(error => {
+                    reject(error);
+                });
+            }).catch(error => {
                 reject(error);
             });
         });

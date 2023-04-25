@@ -18,7 +18,6 @@ import {
     VaccineDateTextContent,
     VaccineImage,
     VaccineImageButtonText,
-    VaccineImagePreviewView,
     VaccineImageSelectButton,
     VaccineImageText,
     VaccineImageView,
@@ -34,6 +33,8 @@ import VaccineAppBar from "../../components/VaccineAppBar";
 
 import Calendar from "../../assets/calendar.svg";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import {useAuth} from "../../contexts/AuthContext";
+import {useVaccine} from "../../contexts/VaccineContext";
 
 function NewVaccine({navigation}) {
     const [openVaccinePicker, setOpenVaccinePicker] = useState(false);
@@ -44,6 +45,11 @@ function NewVaccine({navigation}) {
     const [openNextPicker, setOpenNextPicker] = useState(false);
     const [nextDate, setNextDate] = useState<Date | null>(null);
     const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    // @ts-ignore
+    const {getUser} = useAuth();
+    // @ts-ignore
+    const {createVaccine} = useVaccine();
 
     async function getImageFromLibrary() {
         await ImagePicker.launchImageLibrary({mediaType: 'photo', selectionLimit: 1}, (response) => {
@@ -76,7 +82,17 @@ function NewVaccine({navigation}) {
     });
 
     function saveVaccine() {
-
+        const userId = getUser().uid;
+        createVaccine(userId, vaccineName, vaccineImage, vaccineDate, dose, nextDate).then(() => {
+            setVaccineName('');
+            setVaccineImage(null);
+            setDose(null);
+            setNextDate(null);
+            setVaccineDate(new Date());
+            navigation.goBack();
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     return (
@@ -122,9 +138,9 @@ function NewVaccine({navigation}) {
                                         }}
                                         iconImageStyle={{opacity: 0}}
                                         style={{paddingLeft: 15}}
-                                        isChecked={dose === "1dose"}
+                                        isChecked={dose === "1a. dose"}
                                         disableBuiltInState
-                                        onPress={() => setDose("1dose")}/>
+                                        onPress={() => setDose("1a. dose")}/>
                         <DoseItemText>1a. dose</DoseItemText>
                         <BouncyCheckbox size={14}
                                         unfillColor="#fff"
@@ -136,9 +152,9 @@ function NewVaccine({navigation}) {
                                         }}
                                         iconImageStyle={{opacity: 0}}
                                         style={{paddingLeft: 15}}
-                                        isChecked={dose === "2dose"}
+                                        isChecked={dose === "2a. dose"}
                                         disableBuiltInState
-                                        onPress={() => setDose("2dose")}/>
+                                        onPress={() => setDose("2a. dose")}/>
                         <DoseItemText>2a. dose</DoseItemText>
                         <BouncyCheckbox size={14}
                                         unfillColor="#fff"
@@ -150,9 +166,9 @@ function NewVaccine({navigation}) {
                                         }}
                                         iconImageStyle={{opacity: 0}}
                                         style={{paddingLeft: 15}}
-                                        isChecked={dose === "3dose"}
+                                        isChecked={dose === "3a. dose"}
                                         disableBuiltInState
-                                        onPress={() => setDose("3dose")}/>
+                                        onPress={() => setDose("3a. dose")}/>
                         <DoseItemText>3a. dose</DoseItemText>
                         <BouncyCheckbox size={14}
                                         unfillColor="#fff"
@@ -164,9 +180,9 @@ function NewVaccine({navigation}) {
                                         }}
                                         iconImageStyle={{opacity: 0}}
                                         style={{paddingLeft: 15}}
-                                        isChecked={dose === "single"}
+                                        isChecked={dose === "Dose única"}
                                         disableBuiltInState
-                                        onPress={() => setDose("single")}/>
+                                        onPress={() => setDose("Dose única")}/>
                         <DoseItemText>Dose única</DoseItemText>
                     </DoseItemView>
                 </DoseFieldView>

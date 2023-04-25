@@ -147,9 +147,6 @@ export const VaccineImageButtonText = styled.Text`
   color: #fff;
 `;
 
-export const VaccineImagePreviewView = styled.View`
-`;
-
 export const VaccineImage = styled.Image`
   margin-top: 20px;
   width: 50%;

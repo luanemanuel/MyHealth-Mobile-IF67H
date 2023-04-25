@@ -16,3 +16,9 @@ export const AppBarText = styled.Text`
   font-size: 40px;
   color: #419ED7;
 `;
+
+export const ReturnButton = styled.TouchableOpacity`
+  margin-left: 10px;
+  margin-right: 10px;
+  align-items: center;
+`;

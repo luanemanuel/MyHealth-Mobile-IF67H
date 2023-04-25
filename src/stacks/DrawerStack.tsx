@@ -17,8 +17,6 @@ function DrawerStack() {
             }}
             drawerContent={(props) => <CustomDrawer {...props}/>}>
             <Drawer.Screen name="Home" component={Home}/>
-            <Drawer.Screen name="NewVaccine" component={NewVaccine}/>
-            <Drawer.Screen name="EditVaccine" component={EditVaccine}/>
             <Drawer.Screen name="NextVaccine" component={NextVaccine}/>
         </Drawer.Navigator>
     );

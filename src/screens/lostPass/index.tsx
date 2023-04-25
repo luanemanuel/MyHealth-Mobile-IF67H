@@ -39,7 +39,7 @@ function LostPass({navigation}) {
 
     return (
         <Container>
-            <VaccineAppBar haveDrawer={false} text='MyHealth' navigation={navigation}/>
+            <VaccineAppBar haveDrawer={false} haveReturn={false} text='MyHealth' navigation={navigation}/>
             <Content>
                 <EmailFieldView>
                     <EmailText>E-mail</EmailText>

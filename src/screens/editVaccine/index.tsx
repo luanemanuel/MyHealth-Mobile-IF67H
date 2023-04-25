@@ -7,7 +7,7 @@ function EditVaccine({navigation}) {
 
     return(
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas' navigation={navigation}/>
+            <VaccineAppBar haveDrawer={false} haveReturn={true} text='Editar vacina' navigation={navigation}/>
             <Content>
 
             </Content>

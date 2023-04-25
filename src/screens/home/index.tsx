@@ -48,7 +48,7 @@ function Home({navigation}) {
 
     return (
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas' navigation={navigation}/>
+            <VaccineAppBar haveDrawer={true} haveReturn={false} text='Minhas vacinas' navigation={navigation}/>
             <Content>
                 <SearchBarView>
                     <Search width={20} height={20}/>

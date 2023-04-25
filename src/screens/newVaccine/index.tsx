@@ -97,7 +97,7 @@ function NewVaccine({navigation}) {
 
     return (
         <Container>
-            <VaccineAppBar haveDrawer={true} text='Minhas vacinas' navigation={navigation}/>
+            <VaccineAppBar haveDrawer={false} haveReturn={true} text='Nova vacina' navigation={navigation}/>
             <Content>
                 <VaccineDateFieldView>
                     <VaccineDateText>Data de vacinação</VaccineDateText>

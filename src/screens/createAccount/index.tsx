@@ -85,7 +85,7 @@ function CreateAccount({navigation}) {
 
     return (
         <Container>
-            <VaccineAppBar haveDrawer={false} text="MyHealth" navigation={navigation}/>
+            <VaccineAppBar haveDrawer={false} haveReturn={true} text="Nova Conta" navigation={navigation}/>
             <Content>
                 <NameFieldView>
                     <NameText>Nome Completo</NameText>

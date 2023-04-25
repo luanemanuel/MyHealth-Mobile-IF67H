@@ -147,7 +147,78 @@ export const VaccineImageButtonText = styled.Text`
   color: #fff;
 `;
 
+export const VaccineImagePreviewView = styled.View`
+`;
+
 export const VaccineImage = styled.Image`
+  margin-top: 20px;
   width: 50%;
-  height: 20%;
+  height: 10%;
+`;
+
+export const NextVaccineDateFieldView = styled.View`
+  padding-top: 20px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const NextVaccineDateField = styled.View`
+  width: 50%;
+  height: 35px;
+  background: #fff;
+  margin-left: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const NextVaccineDateTextContent = styled.Text`
+  background: #fff;
+  margin-left: 10px;
+  color: #419ED7;
+  font-family: 'AveriaLibre-Regular';
+  font-size: 18px;
+`;
+
+export const NextVaccineDateText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+`;
+
+export const NextVaccineDateButton = styled.TouchableOpacity`
+  width: 100%;
+  background: transparent;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CreateButtonView = styled.View`
+  padding-top: 80%;
+  align-items: center;
+  width: 100%;
+`;
+
+export const CreateButton = styled.TouchableOpacity`
+  width: 40%;
+  height: 40px;
+  background: #37BD6D;
+  align-items: center;
+  justify-content: center;
+  elevation: 10;
+`;
+
+export const CreateButtonText = styled.Text`
+  font-family: 'AveriaLibre-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px 25px 5px 25px;
+  color: #fff;
 `;

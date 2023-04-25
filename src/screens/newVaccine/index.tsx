@@ -1,16 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Container,
-    Content,
+    Content, CreateButton, CreateButtonText, CreateButtonView,
     DoseFieldView,
     DoseItemText,
     DoseItemView,
     DoseText,
+    NextVaccineDateButton,
+    NextVaccineDateField,
+    NextVaccineDateFieldView,
+    NextVaccineDateText,
+    NextVaccineDateTextContent,
     VaccineDateButton,
     VaccineDateField,
     VaccineDateFieldView,
     VaccineDateText,
-    VaccineDateTextContent, VaccineImage, VaccineImageButtonText, VaccineImageSelectButton,
+    VaccineDateTextContent,
+    VaccineImage,
+    VaccineImageButtonText,
+    VaccineImagePreviewView,
+    VaccineImageSelectButton,
     VaccineImageText,
     VaccineImageView,
     VaccineNameFieldView,
@@ -19,6 +28,7 @@ import {
 } from "./styles";
 import moment from "moment/moment";
 import DatePicker from "react-native-date-picker";
+
 const ImagePicker = require('react-native-image-picker');
 import VaccineAppBar from "../../components/VaccineAppBar";
 
@@ -27,15 +37,16 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 function NewVaccine({navigation}) {
     const [openVaccinePicker, setOpenVaccinePicker] = useState(false);
-    const [openNextVaccinePicker, setOpenNextVaccinePicker] = useState(false);
     const [vaccineDate, setVaccineDate] = useState(new Date());
     const [vaccineName, setVaccineName] = useState('');
     const [dose, setDose] = useState<String | null>(null);
     const [vaccineImage, setVaccineImage] = useState<string | null>(null);
+    const [openNextPicker, setOpenNextPicker] = useState(false);
+    const [nextDate, setNextDate] = useState<Date | null>(null);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
 
     async function getImageFromLibrary() {
-        const result = await ImagePicker.launchImageLibrary({mediaType: 'photo', selectionLimit: 1}, (response) => {
-            console.log(response);
+        await ImagePicker.launchImageLibrary({mediaType: 'photo', selectionLimit: 1}, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             } else if (response.errorCode) {
@@ -55,6 +66,19 @@ function NewVaccine({navigation}) {
         });
     }
 
+    function validateVaccineName(name) {
+        return name.length > 0;
+    }
+
+    useEffect(() => {
+        const buttonStatus = validateVaccineName(vaccineName) && dose != null && vaccineImage != null && dose.length > 0;
+        setButtonDisabled(!buttonStatus);
+    });
+
+    function saveVaccine() {
+
+    }
+
     return (
         <Container>
             <VaccineAppBar haveDrawer={true} text='Minhas vacinas' navigation={navigation}/>
@@ -66,6 +90,7 @@ function NewVaccine({navigation}) {
                             <VaccineDateTextContent>{moment(vaccineDate).format('DD/MM/YYYY')}</VaccineDateTextContent>
                             <Calendar height={20} width={20} style={{paddingRight: 30}}/>
                             <DatePicker modal
+                                        title={'Selecione a data'}
                                         date={vaccineDate}
                                         open={openVaccinePicker}
                                         onConfirm={(date) => {
@@ -80,7 +105,9 @@ function NewVaccine({navigation}) {
                 </VaccineDateFieldView>
                 <VaccineNameFieldView>
                     <VaccineNameText>Vacina</VaccineNameText>
-                    <VaccineNameTextField/>
+                    <VaccineNameTextField
+                        value={vaccineName}
+                        onChangeText={setVaccineName}/>
                 </VaccineNameFieldView>
                 <DoseFieldView>
                     <DoseText>Dose</DoseText>
@@ -150,11 +177,43 @@ function NewVaccine({navigation}) {
                     </VaccineImageSelectButton>
                 </VaccineImageView>
                 {
-                    vaccineImage != null && VaccineImage != '' &&
-                    <VaccineImageView>
-                        <VaccineImage source={vaccineImage}/>
-                    </VaccineImageView>
+                    vaccineImage != null &&
+                    <VaccineImage source={{uri: vaccineImage}}/>
                 }
+                <NextVaccineDateFieldView>
+                    <NextVaccineDateText>Próxima vacinação</NextVaccineDateText>
+                    <NextVaccineDateField>
+                        <NextVaccineDateButton onPress={() => setOpenNextPicker(true)}>
+                            {
+                                nextDate == null &&
+                                <NextVaccineDateTextContent>Selecione a data</NextVaccineDateTextContent>
+                            }
+                            {
+                                nextDate != null &&
+                                <NextVaccineDateTextContent>{moment(nextDate).format('DD/MM/YYYY')}</NextVaccineDateTextContent>
+                            }
+                            <Calendar height={20} width={20} style={{paddingRight: 30}}/>
+                            <DatePicker modal
+                                        title={'Selecione a data'}
+                                        date={nextDate ?? new Date()}
+                                        open={openNextPicker}
+                                        onConfirm={(date) => {
+                                            setOpenNextPicker(false)
+                                            console.log(date)
+                                            setNextDate(date)
+                                        }} onCancel={() => {
+                                setOpenNextPicker(false)
+                            }} mode="date"/>
+                        </NextVaccineDateButton>
+                    </NextVaccineDateField>
+                </NextVaccineDateFieldView>
+                <CreateButtonView>
+                    <CreateButton disabled={buttonDisabled}
+                                  style={{opacity: buttonDisabled ? 0.5 : 1}}
+                                  onPress={saveVaccine}>
+                        <CreateButtonText>Cadastrar</CreateButtonText>
+                    </CreateButton>
+                </CreateButtonView>
             </Content>
         </Container>
     );

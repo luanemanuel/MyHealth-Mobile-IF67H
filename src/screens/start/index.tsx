@@ -41,7 +41,7 @@ function Start({navigation}) {
     });
 
     function validateEmail(email) {
-        const emailRegex = /\S+@\S+\.\S+/;
+        const emailRegex = new RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         return emailRegex.test(email);
     }
 
